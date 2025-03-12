@@ -188,7 +188,7 @@ export function getAcquisitionRouter(config: AcquisitionConfig): express.Router 
           _server_url = match ? match[0] : null;
 
           
-          updateCheckBody.updateInfo.download_url = updateCheckBody.updateInfo.download_url.replace('127.0.0.1', _server_url);
+          updateCheckBody.updateInfo.downloadURL = updateCheckBody.updateInfo.downloadURL.replace('127.0.0.1', _server_url);
           
           console.log("updateCheckBody",updateCheckBody.updateInfo)
             
