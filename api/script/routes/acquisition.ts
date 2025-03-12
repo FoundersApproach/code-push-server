@@ -176,10 +176,20 @@ export function getAcquisitionRouter(config: AcquisitionConfig): express.Router 
             );
           }
 
-          const updateCheckBody: { updateInfo: UpdateCheckResponse } = {
+          let updateCheckBody: { updateInfo: UpdateCheckResponse } = {
             updateInfo: giveRolloutPackage ? cachedResponseObject.rolloutPackage : cachedResponseObject.originalPackage,
           };
 
+          let _server_url = process.env["SERVER_URL"]
+          console.log("_server_url", _server_url)
+          
+          const ipRegex = /(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/;
+          const match = _server_url.match(ipRegex);
+          _server_url = match ? match[0] : null;
+
+          
+          updateCheckBody.updateInfo.download_url = updateCheckBody.updateInfo.download_url.replace('127.0.0.1', _server_url);
+          
           console.log("updateCheckBody",updateCheckBody.updateInfo)
             
           // Change in new API
