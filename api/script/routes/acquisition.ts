@@ -180,6 +180,8 @@ export function getAcquisitionRouter(config: AcquisitionConfig): express.Router 
             updateInfo: giveRolloutPackage ? cachedResponseObject.rolloutPackage : cachedResponseObject.originalPackage,
           };
 
+          console.log("updateCheckBody",updateCheckBody.updateInfo)
+            
           // Change in new API
           updateCheckBody.updateInfo.target_binary_range = updateCheckBody.updateInfo.appVersion;
 
