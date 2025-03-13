@@ -32,6 +32,23 @@ function getUrlKey(originalUrl: string): string {
   return obj.pathname + "?" + queryString.stringify(obj.query);
 }
 
+function replaceHostnameWithExtraction(targetUrl, sourceUrl) {
+    // Extract hostname and protocol (http or https) from the source URL
+    const sourceRegex = /^(https?):\/\/([\w.-]+)/;
+    const sourceMatch = sourceUrl.match(sourceRegex);
+    
+    if (!sourceMatch) {
+        console.error("Invalid Source URL");
+        return null;
+    }
+    
+    const [ , protocol, newHostname ] = sourceMatch;
+
+    // Replace hostname and protocol in the target URL
+    const updatedUrl = targetUrl.replace(/^https?:\/\/[\w.-]+/, `${protocol}://${newHostname}`);
+    return updatedUrl;
+}
+
 function createResponseUsingStorage(
   req: express.Request,
   res: express.Response,
@@ -181,12 +198,8 @@ export function getAcquisitionRouter(config: AcquisitionConfig): express.Router 
           };
 
           let _server_url = process.env["SERVER_URL"]
-          const regex = /^(?:https?:\/\/)?([\w.-]+)/;
-          const match = _server_url.match(regex);
-          _server_url = match ? match[1] : null;
-          console.log("_server_url", _server_url)
 
-          _server_url = updateCheckBody.updateInfo.downloadURL.replace("127.0.0.1", _server_url);
+          _server_url = replaceHostnameWithExtraction(updateCheckBody.updateInfo.downloadURL, _server_url);
           
           updateCheckBody.updateInfo.downloadURL = _server_url
           
