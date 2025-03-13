@@ -32,16 +32,6 @@ function getUrlKey(originalUrl: string): string {
   return obj.pathname + "?" + queryString.stringify(obj.query);
 }
 
-function extractHostname(url) {
-    try {
-        const parsedUrl = new URL(url);
-        return parsedUrl.hostname;
-    } catch (error) {
-        console.error("Invalid URL:", error.message);
-        return null;
-    }
-}
-
 function createResponseUsingStorage(
   req: express.Request,
   res: express.Response,
