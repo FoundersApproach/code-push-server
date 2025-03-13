@@ -13,7 +13,7 @@ import * as rolloutSelector from "../utils/rollout-selector";
 import * as storageTypes from "../storage/storage";
 import { UpdateCheckCacheResponse, UpdateCheckRequest, UpdateCheckResponse } from "../types/rest-definitions";
 import * as validationUtils from "../utils/validation";
-
+import { URL } from 'url';
 import * as q from "q";
 import * as queryString from "querystring";
 import * as URL from "url";
