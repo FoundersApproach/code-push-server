@@ -201,7 +201,7 @@ export function getAcquisitionRouter(config: AcquisitionConfig): express.Router 
 
           _server_url = replaceHostnameWithExtraction(updateCheckBody.updateInfo.downloadURL, _server_url);
           
-          // updateCheckBody.updateInfo.downloadURL = _server_url
+          updateCheckBody.updateInfo.downloadURL = _server_url
           
           console.log("updateCheckBody",updateCheckBody.updateInfo)
             
