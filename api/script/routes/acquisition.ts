@@ -32,6 +32,16 @@ function getUrlKey(originalUrl: string): string {
   return obj.pathname + "?" + queryString.stringify(obj.query);
 }
 
+function extractHostname(url) {
+    try {
+        const parsedUrl = new URL(url);
+        return parsedUrl.hostname;
+    } catch (error) {
+        console.error("Invalid URL:", error.message);
+        return null;
+    }
+}
+
 function createResponseUsingStorage(
   req: express.Request,
   res: express.Response,
@@ -181,10 +191,11 @@ export function getAcquisitionRouter(config: AcquisitionConfig): express.Router 
           };
 
           let _server_url = process.env["SERVER_URL"]
-          console.log("_server_url", _server_url)
+          const _server_host_name = extractHostname(_server_url);
+          console.log("_server_host_name", _server_host_name)
 
-          _server_url = updateCheckBody.updateInfo.downloadURL.replace("127.0.0.1", _server_url);
-
+          _server_url = updateCheckBody.updateInfo.downloadURL.replace("127.0.0.1", _server_host_name);
+          
           updateCheckBody.updateInfo.downloadURL = _server_url
           
           console.log("updateCheckBody",updateCheckBody.updateInfo)
