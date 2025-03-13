@@ -197,13 +197,9 @@ export function getAcquisitionRouter(config: AcquisitionConfig): express.Router 
             updateInfo: giveRolloutPackage ? cachedResponseObject.rolloutPackage : cachedResponseObject.originalPackage,
           };
 
-          let _server_url = process.env["SERVER_URL"]
-
-          _server_url = replaceHostnameWithExtraction(updateCheckBody.updateInfo.downloadURL, _server_url);
-          
+          let _server_url = updateCheckBody.updateInfo.downloadURL
+          _server_url = _server_url.replace("127.0.0.1", "165.22.184.199");
           updateCheckBody.updateInfo.downloadURL = _server_url
-          
-          console.log("updateCheckBody",updateCheckBody.updateInfo)
             
           // Change in new API
           updateCheckBody.updateInfo.target_binary_range = updateCheckBody.updateInfo.appVersion;
