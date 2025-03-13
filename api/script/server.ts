@@ -20,8 +20,8 @@ defaultServer.start(function (err: Error, app: express.Express) {
 
   if (httpsEnabled) {
     const options = {
-      key: fs.readFileSync("./certs/cert.key", "utf8"),
-      cert: fs.readFileSync("./certs/cert.crt", "utf8"),
+      key: fs.readFileSync("/etc/letsencrypt/live/cp.foundersapproach.org/privkey.pem", "utf8"),
+      cert: fs.readFileSync("/etc/letsencrypt/live/cp.foundersapproach.org/fullchain.pem", "utf8"),
     };
 
     server = https.createServer(options, app).listen(port, function () {
